@@ -1,14 +1,6 @@
 import jwt from 'jsonwebtoken'
-import type { JwtPayload } from 'jsonwebtoken'
 import type { NextFunction, Request, Response } from "express";
 
-declare global {
-    namespace Express {
-        interface Request {
-            user?: string | JwtPayload
-        }
-    }
-}
 
 export async function requireAuth(req: Request, res: Response, next: NextFunction) {
     try {
@@ -19,9 +11,8 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
             })
         }
 
-        const payload = jwt.verify(token, process.env.JWT_SECRET as string)
-
-        req.user = payload
+        const payload = jwt.verify(token, process.env.JWT_SECRET as string) as {userId: number}
+        req.user = { userId: payload.userId }
         return next()
     } catch (error) {
         return res.status(401).json({

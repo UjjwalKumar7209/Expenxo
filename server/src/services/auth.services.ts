@@ -35,9 +35,20 @@ async function login(email: string, password: string) {
     }
 }
 
+async function getMe(userId: number) {
+  const user = await userRepository.findUserById(userId)
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  return user
+}
+
 const authService = {
     register,
-    login
+    login,
+    getMe
 }
 
 export default authService

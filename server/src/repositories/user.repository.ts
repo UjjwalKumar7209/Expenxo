@@ -21,9 +21,15 @@ async function createUser(name: string, email: string, hashPassword: string) {
     return user[0]
 }
 
+async function findUserById(id: number) {
+  const user = await db.select().from(usersTable).where(eq(usersTable.id, id))
+  return user[0] ?? null
+}
+
 const userRepository = {
     findUserByEmail,
-    createUser
+    createUser,
+    findUserById
 }
 
 export default userRepository
