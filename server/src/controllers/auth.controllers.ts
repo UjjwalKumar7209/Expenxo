@@ -62,10 +62,19 @@ async function getMe(req: Request, res: Response, next: NextFunction) {
     }
 }
 
+async function logout(req: Request, res: Response) {
+  res.clearCookie('token')
+
+  return res.status(200).json({
+    msg: 'Logged out'
+  })
+}
+
 const authController =  {
     register,
     login,
-    getMe
+    getMe,
+    logout
 }
 
 export default authController
