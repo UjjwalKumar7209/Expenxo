@@ -15,7 +15,7 @@ async function createUser(name: string, email: string, hashPassword: string) {
     const user = await db.insert(usersTable).values({
         name,
         email,
-        password: hashPassword
+        passwordHash: hashPassword
     }).returning()
 
     return user[0]

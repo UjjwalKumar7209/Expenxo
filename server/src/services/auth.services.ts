@@ -19,7 +19,7 @@ async function login(email: string, password: string) {
     if (!user) {
         throw new Error('Invalid Credentials')
     }
-    const isPasswordCorrect = await bcrypt.compare(password, user.password)
+    const isPasswordCorrect = await bcrypt.compare(password, user.passwordHash)
     if (!isPasswordCorrect) {
         throw new Error('Invalid Credentials')
     }
