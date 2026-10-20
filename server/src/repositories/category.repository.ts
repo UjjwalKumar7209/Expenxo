@@ -16,22 +16,27 @@ async function getCategoryByUserIdAndName(userId: number, name: string) {
         eq(categoryTable.userId, userId),
         eq(categoryTable.name, name)
     ))
-    console.log(data)
+    // console.log(data)
     return data[0] ?? null
 }
 
 async function postCategory(userId: number, category: string) {
-    return await db.insert(categoryTable).values({
+    const [data] = await db.insert(categoryTable).values({
         userId: userId,
         name: category
-    })
+    }).returning()
+    return data
 }
 
 async function deleteCategoryByName(userId: number, category: string) {
-    return await db.delete(categoryTable).where(and(
+    const data = await db.delete(categoryTable).where(and(
         eq(categoryTable.userId, userId),
         eq(categoryTable.name, category)
     )).returning()
+    if (data.length === 0) {
+        throw new Error("Category doesnot exist!")
+    }
+    return data
 }
 
 async function updateCategory(userId: number, category: string, updatedCategory: string) {
@@ -41,7 +46,10 @@ async function updateCategory(userId: number, category: string, updatedCategory:
         eq(categoryTable.userId, userId),
         eq(categoryTable.name, category)
     )).returning()
-    return data[0]
+    if (data.length === 0) {
+        throw new Error("This category doesnot exist!")
+    }
+    return data
 }
 
 

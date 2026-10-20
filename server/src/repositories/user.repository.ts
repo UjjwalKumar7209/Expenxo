@@ -12,6 +12,10 @@ async function findUserByEmail(email: string) {
 }
 
 async function createUser(name: string, email: string, hashPassword: string) {
+    const alreadyExistUser = await findUserByEmail(email)
+    if (alreadyExistUser !== null) {
+        throw new Error("User aready exists!")
+    }
     const user = await db.insert(usersTable).values({
         name,
         email,
