@@ -3,6 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.routes'
 import categoryRoutes from './routes/category.routes'
+import expenseRoutes from './routes/expense.routes'
 
 const app: Express = express()
 
@@ -19,6 +20,7 @@ app.get('/health', (req: Request, res: Response) => {
 
 app.use('/api/v1', authRoutes)
 app.use('/api/v1', categoryRoutes)
+app.use('/api/v1/', expenseRoutes);
 
 
 const port = process.env.PORT || 5000
