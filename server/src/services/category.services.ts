@@ -17,9 +17,9 @@ async function postCategory(userId: number, category: string) {
 
 async function deleteCategory(userId: number, category: string) {
     const data = await categoryRepository.getCategoryByUserIdAndName(userId, category)
-    console.log(data)
+    // console.log(data)
     if (!data) {
-        throw new Error("Category doesnot already exists!")
+        throw new Error("Category doesnot exists!")
     }
     return await categoryRepository.deleteCategoryByName(userId, category)
 }

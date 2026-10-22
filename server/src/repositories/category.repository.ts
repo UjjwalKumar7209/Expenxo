@@ -11,6 +11,7 @@ async function getCategoryByUserId(userId: number) {
     return categories
 }
 
+
 async function getCategoryByUserIdAndName(userId: number, name: string) {
     const data = await db.select().from(categoryTable).where(and(
         eq(categoryTable.userId, userId),
@@ -19,6 +20,14 @@ async function getCategoryByUserIdAndName(userId: number, name: string) {
     // console.log(data)
     return data[0] ?? null
 }
+
+async function getCategoryByUserIdAndCategoryId(userId: number, categoryId: number) {{
+    const data = await db.select().from(categoryTable).where(and(
+        eq(categoryTable.userId, userId),
+        eq(categoryTable.id, categoryId)
+    ))
+    return data[0] ?? null
+}}
 
 async function postCategory(userId: number, category: string) {
     const [data] = await db.insert(categoryTable).values({
@@ -56,7 +65,8 @@ async function updateCategory(userId: number, category: string, updatedCategory:
 export const categoryRepository = {
     getCategoryByUserId,
     getCategoryByUserIdAndName,
+    getCategoryByUserIdAndCategoryId,
     postCategory,
     deleteCategoryByName,
-    updateCategory
+    updateCategory,
 }
