@@ -5,5 +5,6 @@ import { expenseController } from '../controllers/expense.controllers'
 const router = express.Router()
 
 router.post('/expense', requireAuth, expenseController.postExpense)
+router.get('/expense', requireAuth, expenseController.getExpense)
 
 export default router

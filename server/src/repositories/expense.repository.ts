@@ -15,6 +15,12 @@ async function postExpense(userId: number, categoryId: number, amount: number, d
     return expense;
 }
 
+async function getExpense(userId: number) {
+    const expenses = await db.select().from(expenseTable).where(eq(expenseTable.userId, userId))
+    return expenses
+}
+
 export const expenseRepository = {
-    postExpense
+    postExpense,
+    getExpense
 }

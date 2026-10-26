@@ -10,7 +10,13 @@ async function postExpense(userId: number, category: string, categoryId: number,
     return returning
 }
 
+async function getExpense(userID: number) {
+    const expenses = await expenseRepository.getExpense(userID);
+    return expenses
+}
+
 
 export const expenseService = {
-    postExpense
+    postExpense,
+    getExpense
 }
