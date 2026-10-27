@@ -6,5 +6,6 @@ const router = express.Router()
 
 router.post('/expense', requireAuth, expenseController.postExpense)
 router.get('/expense', requireAuth, expenseController.getExpense)
+router.delete('/expense', requireAuth, expenseController.deleteExpense)
 
 export default router

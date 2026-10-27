@@ -15,8 +15,18 @@ async function getExpense(userID: number) {
     return expenses
 }
 
+async function deleteExpense(userId: number, expenseId: number) {
+    const checkExpense = await expenseRepository.getExpenseByExpenseIdAndUserId(userId, expenseId)
+    if (!checkExpense) {
+        throw new Error("Expense id not found")
+    }
+    const returning = await expenseRepository.deleteExpense(userId, expenseId)
+    return returning
+}
+
 
 export const expenseService = {
     postExpense,
-    getExpense
+    getExpense,
+    deleteExpense
 }

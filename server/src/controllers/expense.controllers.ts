@@ -32,7 +32,24 @@ async function getExpense(req: Request, res: Response) {
     }
 }
 
+async function deleteExpense(req: Request, res: Response) {
+    try {
+        const userId = req.user!.userId
+        const { expenseId } = req.body
+        const returning = await expenseService.deleteExpense(userId, expenseId)
+        return res.status(200).json({
+            msg: "Expense deleted",
+            returning: returning
+        })
+    } catch (error) {
+        return res.status(500).json({
+            msg: error instanceof Error? error.message: "something went wrong while delete expense"
+        })
+    }
+}
+
 export const expenseController = {
     postExpense,
-    getExpense
+    getExpense,
+    deleteExpense
 }
