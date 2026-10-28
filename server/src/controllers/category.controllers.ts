@@ -45,9 +45,9 @@ async function deleteCategory(req: Request, res: Response) {
 
 async function updateCategory(req: Request, res: Response) {
     try {
-        const category = req.body.category
+        const categoryId = req.body.categoryId
         const updatedCategory = req.body.updatedCategory
-        const returning = await categoryService.updateCategory(req.user!.userId, category, updatedCategory)
+        const returning = await categoryService.updateCategory(req.user!.userId, categoryId, updatedCategory)
         return res.status(200).json({
             msg: "Category updated!",
             returning: returning

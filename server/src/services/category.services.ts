@@ -24,8 +24,12 @@ async function deleteCategory(userId: number, category: string) {
     return await categoryRepository.deleteCategoryByName(userId, category)
 }
 
-async function updateCategory(userId: number, category: string, updatedCategory: string) {
-    return await categoryRepository.updateCategory(userId, category, updatedCategory)
+async function updateCategory(userId: number, categoryId: number, updatedCategory: string) {
+    const checkCategory = await categoryRepository.getCategoryByUserIdAndCategoryId(userId, categoryId)
+    if (!checkCategory) {
+        throw new Error("Category not found to update")
+    }
+    return await categoryRepository.updateCategory(userId, categoryId, updatedCategory)
 }
 
 

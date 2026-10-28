@@ -14,13 +14,17 @@ app.use(cookieParser())
 
 app.get('/health', (req: Request, res: Response) => {
     res.json({
-        "msg": "healthy"
+        msg: "healthy"
     })
 })
-
+app.get('/', (req: Request, res: Response) => {
+    return res.json({
+        msg: "Welcome to Expenxo!"
+    })
+})
 app.use('/api/v1', authRoutes)
 app.use('/api/v1', categoryRoutes)
-app.use('/api/v1/', expenseRoutes);
+app.use('/api/v1', expenseRoutes);
 
 
 const port = process.env.PORT || 5000

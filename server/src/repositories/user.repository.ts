@@ -21,8 +21,12 @@ async function createUser(name: string, email: string, hashPassword: string) {
         email,
         passwordHash: hashPassword
     }).returning()
+    const data = {
+        name: user[0]?.name,
+        email: user[0]?.email
+    }
 
-    return user[0]
+    return data
 }
 
 async function findUserById(id: number) {

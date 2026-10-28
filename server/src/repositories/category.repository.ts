@@ -48,12 +48,12 @@ async function deleteCategoryByName(userId: number, category: string) {
     return data
 }
 
-async function updateCategory(userId: number, category: string, updatedCategory: string) {
+async function updateCategory(userId: number, categoryId: number, updatedCategory: string) {
     const data = await db.update(categoryTable).set({
         name: updatedCategory,
     }).where(and(
         eq(categoryTable.userId, userId),
-        eq(categoryTable.name, category)
+        eq(categoryTable.id, categoryId)
     )).returning()
     if (data.length === 0) {
         throw new Error("This category doesnot exist!")
