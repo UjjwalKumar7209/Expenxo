@@ -1,32 +1,32 @@
-import { APITester } from "./APITester";
-import "./index.css";
+import "./index.css"
+import { useState } from "react";
+import { Link, Route, Routes } from "react-router";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import LandingPage from "./pages/LandingPage";
 
-import logo from "./logo.svg";
-import reactLogo from "./react.svg";
 
-export function App() {
+
+export default function App() {
   return (
-    <div className="max-w-7xl mx-auto p-8 text-center relative z-10">
-      <div className="flex justify-center items-center gap-8 mb-8">
-        <img
-          src={logo}
-          alt="Bun Logo"
-          className="h-24 p-6 transition-all duration-300 hover:drop-shadow-[0_0_2em_#646cffaa] scale-120"
-        />
-        <img
-          src={reactLogo}
-          alt="React Logo"
-          className="h-24 p-6 transition-all duration-300 hover:drop-shadow-[0_0_2em_#61dafbaa] animate-[spin_20s_linear_infinite]"
-        />
-      </div>
-
-      <h1 className="text-5xl font-bold my-4 leading-tight">Bun + React</h1>
-      <p>
-        Edit <code className="bg-[#1a1a1a] px-2 py-1 rounded font-mono">src/App.tsx</code> and save to test HMR
-      </p>
-      <APITester />
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+        path="*"
+        element={
+          <main className="grid min-h-screen place-items-center bg-[#FAF9F6] p-6 text-center">
+            <div>
+              <h1 className="text-6xl font-black">404</h1>
+              <p className="mt-3">This page doesn't exist.</p>
+              <Link to="/" className="mt-6 inline-block font-bold underline">
+                Return home
+              </Link>
+            </div>
+          </main>
+        }
+      />
+    </Routes>
   );
 }
-
-export default App;
