@@ -1,8 +1,8 @@
 import { useState, useCallback } from "react";
 import type { FormEvent } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router";
 import Notification from "../components/Notification";
+import { apiError, clientApi } from "../api";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -29,36 +29,21 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const config = await axios.get("/config");
-
-      const response = await axios.post(
-        `${config.data.BACKEND_URL}/api/v1/register`,
-        data,
-        { withCredentials: true }
-      );
-
-      console.log(response.data);
+      await clientApi.register(data);
 
       sessionStorage.setItem(
         "auth-notification",
         JSON.stringify({
           type: "success",
           message: "Your account has been created. Please log in.",
-        })
+        }),
       );
 
       navigate("/login");
     } catch (error: unknown) {
-      const message = axios.isAxiosError(error)
-        ? error.response?.data?.msg
-        : undefined;
-
       setNotification({
         type: "error",
-        message:
-          typeof message === "string"
-            ? message
-            : "Registration failed. Please try again.",
+        message: apiError(error, "Registration failed. Please try again."),
       });
     } finally {
       setLoading(false);
@@ -128,9 +113,7 @@ export default function Register() {
                   placeholder="Your name"
                   required
                   value={data.name}
-                  onChange={(e) =>
-                    setData({ ...data, name: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, name: e.target.value })}
                   className="w-full border-2 border-black bg-[#FAF9F6] px-4 py-3 outline-none transition focus:bg-white focus:ring-2 focus:ring-[#2563EB]"
                 />
               </div>
@@ -145,9 +128,7 @@ export default function Register() {
                   placeholder="you@example.com"
                   required
                   value={data.email}
-                  onChange={(e) =>
-                    setData({ ...data, email: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, email: e.target.value })}
                   className="w-full border-2 border-black bg-[#FAF9F6] px-4 py-3 outline-none transition focus:bg-white focus:ring-2 focus:ring-[#2563EB]"
                 />
               </div>

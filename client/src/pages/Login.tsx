@@ -1,8 +1,8 @@
-import axios from "axios";
 import type { FormEvent } from "react";
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router";
 import Notification from "../components/Notification";
+import { apiError, clientApi } from "../api";
 
 type Notice = {
   message: string;
@@ -55,36 +55,24 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const config = await axios.get("/config");
-
-      const response = await axios.post(
-        `${config.data.BACKEND_URL}/api/v1/login`,
-        data,
-        { withCredentials: true }
-      );
-
-      console.log(response.data);
+      await clientApi.login(data);
 
       sessionStorage.setItem(
         "auth-notification",
         JSON.stringify({
           type: "success",
           message: "You have logged in successfully. Welcome back!",
-        })
+        }),
       );
 
-      navigate("/temp");
+      navigate("/app", { replace: true });
     } catch (error: unknown) {
-      const message = axios.isAxiosError(error)
-        ? error.response?.data?.msg
-        : undefined;
-
       setNotification({
         type: "error",
-        message:
-          typeof message === "string"
-            ? message
-            : "Login failed. Please check your credentials and try again.",
+        message: apiError(
+          error,
+          "Login failed. Please check your credentials and try again.",
+        ),
       });
     } finally {
       setLoading(false);
@@ -153,9 +141,7 @@ export default function Login() {
                   placeholder="you@example.com"
                   required
                   value={data.email}
-                  onChange={(e) =>
-                    setData({ ...data, email: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, email: e.target.value })}
                   className="w-full border-2 border-black bg-[#FAF9F6] px-4 py-3 outline-none transition focus:bg-white focus:ring-2 focus:ring-[#2563EB]"
                 />
               </div>
