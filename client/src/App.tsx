@@ -16,8 +16,8 @@ import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Categories from "./pages/Categories";
-import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import Analytics from "./pages/Analytics";
 
 const navItems: Array<[string, string, string]> = [
   ["/app", "Dashboard", "▦"],
