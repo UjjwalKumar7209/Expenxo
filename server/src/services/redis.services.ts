@@ -15,3 +15,7 @@ export const setCache = async (key: string, value: unknown, ttl = 300) => {
 export const deleteCache = async (key: string) => {
   await redisClient.del(key);
 };
+
+export const flushData = async () => {
+  await redisClient.flushAll();
+};

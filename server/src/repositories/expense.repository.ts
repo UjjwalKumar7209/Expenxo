@@ -54,9 +54,21 @@ async function deleteExpense(userId: number, expenseId: number) {
   return returning;
 }
 
+async function getExpensesByCategoryId(userId: number, categoryId: number) {
+  const data = await db.select()
+    .from(expenseTable)
+    .where(and(
+      eq(expenseTable.userId, userId),
+      eq(expenseTable.categoryId, categoryId)
+    ));
+
+  return data;
+}
+
 export const expenseRepository = {
   postExpense,
   getExpense,
   getExpenseByExpenseIdAndUserId,
   deleteExpense,
+  getExpensesByCategoryId
 };
