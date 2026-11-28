@@ -31,21 +31,6 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", categoryRoutes);
 app.use("/api/v1", expenseRoutes);
-app.post("/api/v1/flush-redis", async (req, res) => {
-  try {
-    const returning = await flushData();
-    return res.status(200).json({
-        msg: "Redis data flushed"
-    });
-  } catch (error) {
-    console.error("Error while flushing data of redis:", error);
-    return res.status(500).json({
-        msg: "Failed to flush Redis data",
-      });
-
-  }
-
-});
 
 const PORT = process.env.PORT || 5000;
 

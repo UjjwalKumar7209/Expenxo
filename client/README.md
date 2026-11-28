@@ -1,21 +1,40 @@
-# bun-react-tailwind-template
+# Expenxo Client
 
-To install dependencies:
+React frontend for the Expenxo expense management application.
+
+## Setup
+
+Install dependencies:
 
 ```bash
 bun install
 ```
 
-To start a development server:
+Create the environment file:
 
 ```bash
-bun dev
+cp .env.example .env
 ```
 
-To run for production:
+Set the backend URL in `.env`:
+
+```env
+BACKEND_URL=http://localhost:5000
+```
+
+## Run
+
+Start the development server:
 
 ```bash
-bun start
+bun run dev
 ```
 
-This project was created using `bun init` in bun v1.4.2. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+Open `http://localhost:3000`.
+
+## Build
+
+```bash
+bun run build
+bun run start
+```

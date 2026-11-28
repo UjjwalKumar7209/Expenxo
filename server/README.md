@@ -1,15 +1,36 @@
-# server
+# Expenxo Server
 
-To install dependencies:
+Express API server for the Expenxo expense management application.
+
+## Setup
+
+Install dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+Create the environment file:
 
 ```bash
-bun run index.ts
+cp .env.example .env
 ```
 
-This project was created using `bun init` in bun v1.4.2. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+Configure PostgreSQL, Redis, the server port, and JWT secret in `.env`.
+
+## Run
+
+```bash
+bun run src/index.ts
+```
+
+The API runs at `http://localhost:5000` by default.
+
+## Database
+
+Generate and apply database migrations:
+
+```bash
+bunx drizzle-kit generate
+bunx drizzle-kit migrate
+```
