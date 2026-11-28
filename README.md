@@ -166,17 +166,3 @@ All application routes use the `/api/v1` prefix.
 | GET    | `/api/v1/expense` | List expenses     |
 | POST   | `/api/v1/expense` | Create an expense |
 | DELETE | `/api/v1/expense` | Delete an expense |
-
-## Production Build
-
-Build the frontend from the `client` directory:
-
-```bash
-bun run build
-```
-
-Start the built frontend:
-
-```bash
-bun run start
-```
